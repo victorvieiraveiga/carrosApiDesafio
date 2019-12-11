@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="18G1012" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19B88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Carrinho" representedClassName="Carrinho" syncable="YES" codeGenerationType="class">
+        <attribute name="descricao" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="imagem" optional="YES" attributeType="String"/>
+        <attribute name="marca" optional="YES" attributeType="String"/>
         <attribute name="nome" optional="YES" attributeType="String"/>
         <attribute name="preco" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="quantidade" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
+    <entity name="CarrinhoTotal" representedClassName="CarrinhoTotal" syncable="YES" codeGenerationType="class">
+        <attribute name="quantidade" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="total" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Compras" representedClassName="Compras" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="marca" optional="YES" attributeType="String"/>
+        <attribute name="preco" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="valor" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
     <elements>
-        <element name="Carrinho" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="Carrinho" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="Compras" positionX="-63" positionY="36" width="128" height="103"/>
+        <element name="CarrinhoTotal" positionX="-54" positionY="45" width="128" height="73"/>
     </elements>
 </model>

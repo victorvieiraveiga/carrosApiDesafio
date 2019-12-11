@@ -50,21 +50,6 @@ class CarroTableViewCell: UITableViewCell {
         }
     }
     }
-    
-    
-//    if let urlImagem = hotel.image {
-//        let url = URL(string: urlImagem)
-//        DispatchQueue.main.async {
-//            self.imgFotoHotel.sd_setImage(with: url) { (image, erro, cache, url) in
-//
-//                if erro != nil {
-//                    self.imgFotoHotel.image = UIImage(named: "imagem_padrao.png")
-//                }else {
-//                    print ("foto exibida")
-//                }
-//            }
-//        }
-//        }
 
 }
 

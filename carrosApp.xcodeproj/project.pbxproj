@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		78468BEC2395874800E0DE8F /* Compra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78468BEB2395874800E0DE8F /* Compra.swift */; };
 		7874A069238CBEB50030213F /* ComprasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7874A068238CBEB50030213F /* ComprasViewController.swift */; };
+		78AE3624239315D300AA1620 /* CarrinhoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78AE3623239315D300AA1620 /* CarrinhoTableViewCell.swift */; };
 		8300218BDA3BDD9EA8B5687D /* Pods_carrosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3047CA585AC96136F9B048 /* Pods_carrosApp.framework */; };
 		FA4C060F238427C100708A99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4C060E238427C100708A99 /* AppDelegate.swift */; };
 		FA4C0611238427C100708A99 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4C0610238427C100708A99 /* SceneDelegate.swift */; };
@@ -28,7 +30,9 @@
 /* Begin PBXFileReference section */
 		0E3F60608C2F94E7C93BE1D6 /* Pods-carrosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carrosApp.release.xcconfig"; path = "Target Support Files/Pods-carrosApp/Pods-carrosApp.release.xcconfig"; sourceTree = "<group>"; };
 		6E3047CA585AC96136F9B048 /* Pods_carrosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_carrosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		78468BEB2395874800E0DE8F /* Compra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compra.swift; sourceTree = "<group>"; };
 		7874A068238CBEB50030213F /* ComprasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComprasViewController.swift; sourceTree = "<group>"; };
+		78AE3623239315D300AA1620 /* CarrinhoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrinhoTableViewCell.swift; sourceTree = "<group>"; };
 		C062E0BCA7516CF7560AF33A /* Pods-carrosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carrosApp.debug.xcconfig"; path = "Target Support Files/Pods-carrosApp/Pods-carrosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		FA4C060B238427C100708A99 /* carrosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = carrosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA4C060E238427C100708A99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				FA4C0628238429FD00708A99 /* Carro.swift */,
+				78468BEB2395874800E0DE8F /* Compra.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -126,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				FA4C06382384520C00708A99 /* CarroTableViewCell.swift */,
+				78AE3623239315D300AA1620 /* CarrinhoTableViewCell.swift */,
 				FA4C06392384520C00708A99 /* CarroTableViewCell.xib */,
 			);
 			path = View;
@@ -285,6 +291,8 @@
 				FA4C0611238427C100708A99 /* SceneDelegate.swift in Sources */,
 				FA4C062E2384303C00708A99 /* Constantes.swift in Sources */,
 				FA4C0629238429FD00708A99 /* Carro.swift in Sources */,
+				78468BEC2395874800E0DE8F /* Compra.swift in Sources */,
+				78AE3624239315D300AA1620 /* CarrinhoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
