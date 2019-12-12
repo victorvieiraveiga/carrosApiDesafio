@@ -125,7 +125,7 @@ class listaCarrosController: UITableViewController {
         let context = appDelegate.persistentContainer.viewContext
         let carrinhoTotal = NSEntityDescription.insertNewObject(forEntityName: "CarrinhoTotal", into: context)
         
-        let requisicao = NSFetchRequest<NSFetchRequestResult>(entityName: "CarrinhoTotal")
+
                
             do {
 

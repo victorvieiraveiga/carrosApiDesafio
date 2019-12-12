@@ -188,7 +188,7 @@ class ComprasViewController: UIViewController {
     
     
     @IBAction func finalizarCompra(_ sender: Any) {
-        
+                
               let appDelegate = UIApplication.shared.delegate as! AppDelegate
               let context = appDelegate.persistentContainer.viewContext
               let compras = NSEntityDescription.insertNewObject(forEntityName: "Compras", into: context)
@@ -198,28 +198,32 @@ class ComprasViewController: UIViewController {
                         guard let id = car.value(forKey: "id") else {return}
                         guard let marca = car.value(forKey: "marca") else {return}
                         guard let preco = car.value(forKey: "preco") else {return}
+                        guard let nome = car.value(forKey: "nome") else {return}
         
                         compras.setValue(id, forKey: "id")
                         compras.setValue(marca, forKey: "marca")
                         compras.setValue(preco, forKey: "preco")
+                        compras.setValue(nome, forKey: "nome")
                         
                         do {
                             try context.save()
                         } catch  {
                             print ("Erro ao salvar compra.")
                         }
-                    
-                    exibeMensagemAlerta(titulo: "Compra.", mensagem: "Compra Realizada Com Sucesso.")
-                    
-                    limpaCarrinho ()
-                    
-                    navigationController?.popViewController(animated: true)
+                
                 }
+        limpaCarrinho ()
+        exibeMensagemAlerta(titulo: "Ok", mensagem: "Compra realizada com sucesso. Parabens.")
+        navigationController?.popViewController(animated: true)
+        
     }
+    
+
     
     func exibeMensagemAlerta (titulo: String, mensagem:String){
         let myAlert = UIAlertController(title: titulo, message: mensagem, preferredStyle: .alert)
         let oKAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil)
+        
         myAlert.addAction(oKAction)
         self.present(myAlert, animated: true, completion: nil)
     }

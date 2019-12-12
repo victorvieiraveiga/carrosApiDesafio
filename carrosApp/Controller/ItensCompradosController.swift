@@ -15,17 +15,23 @@ class ItensCompradosController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        
         let requisicaoCompras = NSFetchRequest<NSFetchRequestResult>(entityName: "Compras")
         
 
         //carrega tela com as informacoes do carrinho
         do {
             self.itensCompras = try  context.fetch(requisicaoCompras) as! [NSManagedObject]
-
+            
+//            for iten in self.itensCompras{
+//            context.delete(iten)
+//                try context.save()
+//            }
         } catch  {
             print ("Erro.")
         }
@@ -36,30 +42,23 @@ class ItensCompradosController: UITableViewController {
         return self.itensCompras.count
        }
        
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//             if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)  {
-//
-//                let compra = self.itensCompras[indexPath.row]
-//                cell.textLabel?.text = compra.value(forKey: "marca") as! String
-//
-//                var precoString: String?
-//
-//                if let preco = compra.value(forKey: "preco") as?  Double {
-//                    precoString = "R$" + String(format: "%.2f", preco)//Formata preço
-//                    cell.detailTextLabel?.text = precoString
-//                }
-//
-//               return cell
-//               }
-//           return UITableViewCell()
-//
-//       }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if let celula = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) {
-//
-//        }
-        return UITableViewCell()
+         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        let nome = itensCompras[indexPath.row].value(forKey: "nome")
+        let precoDouble = itensCompras[indexPath.row].value(forKey: "preco")
+        
+        cell.textLabel?.text = nome as! String
+        var precoString: String?
+        
+        if let preco = precoDouble as?  Double {
+            precoString = "R$" + String(format: "%.2f", preco)//Formata preço
+            cell.detailTextLabel?.text = precoString
+        }
+        
+        
+        return cell
     }
 
     /*
