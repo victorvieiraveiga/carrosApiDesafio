@@ -31,9 +31,26 @@ class listaCarrosController: UITableViewController {
         let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
         tableView.register(loadingNib, forCellReuseIdentifier: "loadingCell")
         
+        
+        if verificaCarrinho() == 0 {
+            btnCarrinho.isEnabled = false
+        }
+        else {
+            btnCarrinho.isEnabled = true
+        }
+        
         getCarros()
        //excluiTotal()
 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if verificaCarrinho() == 0 {
+            btnCarrinho.isEnabled = false
+        }
+        else {
+            btnCarrinho.isEnabled = true
+        }
     }
     
 
@@ -81,11 +98,29 @@ class listaCarrosController: UITableViewController {
         
     }
     
+    func verificaCarrinho () -> Int {
+        //verifica se existe itens no carrinho para habilitar o botão
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let requisicaoCarro = NSFetchRequest<NSFetchRequestResult>(entityName: "Carrinho")
+        
+              //carrega tela com as informacoes do carrinho
+          do {
+              let carrinho = try  context.fetch(requisicaoCarro) as! [NSManagedObject]
+            return carrinho.count
+
+          } catch  {
+              print ("Erro.")
+             return 0
+          }
+        
+       
+    }
+    
+    
     func AddTotal (_ valor: Double, _ quantidade:Int) {
-        
-        
-        
-        
+        //Esta função soma os valores dos carros adicionados no carrinho
+        //e incremente sua quantidade.
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let carrinhoTotal = NSEntityDescription.insertNewObject(forEntityName: "CarrinhoTotal", into: context)
@@ -93,10 +128,7 @@ class listaCarrosController: UITableViewController {
         let requisicao = NSFetchRequest<NSFetchRequestResult>(entityName: "CarrinhoTotal")
                
             do {
-                //let carrinho = try  context.fetch(requisicao) as! [NSManagedObject]
-                //let quantidade = carrinho[0].value(forKey: "quantidade") as! Int
-                //let total = carrinho[0].value(forKey: "total") as! Double
-                
+
                 carrinhoTotal.setValue(quantidade + 1, forKey: "quantidade")
                 carrinhoTotal.setValue( valor, forKey: "total")
 
@@ -250,7 +282,7 @@ class listaCarrosController: UITableViewController {
         fetchingMore = true
         print("beginBatchFetch!")
         self.tableView.reloadSections(IndexSet(integer: 1), with: .none)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
      
         self.carros.append(self.carros[self.i])
         self.fetchingMore = false
