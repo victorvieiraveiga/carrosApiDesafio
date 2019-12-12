@@ -271,7 +271,10 @@ class listaCarrosController: UITableViewController {
         
         if offsetY > contentHeight - scrollView.frame.height * 4 {
             if !fetchingMore {
-                beginBatchFetch()
+                if self.carros.count > 0 {
+                    beginBatchFetch()
+                    
+                }
             }
             
         }
@@ -282,7 +285,7 @@ class listaCarrosController: UITableViewController {
         fetchingMore = true
         print("beginBatchFetch!")
         self.tableView.reloadSections(IndexSet(integer: 1), with: .none)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.50, execute: {
      
         self.carros.append(self.carros[self.i])
         self.fetchingMore = false

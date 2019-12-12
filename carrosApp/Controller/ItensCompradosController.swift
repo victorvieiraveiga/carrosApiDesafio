@@ -46,8 +46,8 @@ class ItensCompradosController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        let nome = itensCompras[indexPath.row].value(forKey: "nome")
-        let precoDouble = itensCompras[indexPath.row].value(forKey: "preco")
+        guard let nome = itensCompras[indexPath.row].value(forKey: "nome") else {return UITableViewCell()}
+        guard let precoDouble = itensCompras[indexPath.row].value(forKey: "preco") else {return UITableViewCell()}
         
         cell.textLabel?.text = nome as! String
         var precoString: String?
