@@ -213,7 +213,7 @@ class ComprasViewController: UIViewController {
                 
                 }
         limpaCarrinho ()
-        exibeMensagemAlerta(titulo: "Ok", mensagem: "Compra realizada com sucesso. Parabens.")
+        exibeMensagemAlerta(titulo: "Sucesso.", mensagem: "Compra realizada com sucesso. Parabens.")
         navigationController?.popViewController(animated: true)
         
     }
