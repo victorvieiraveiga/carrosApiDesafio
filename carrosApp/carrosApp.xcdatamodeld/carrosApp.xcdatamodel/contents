@@ -17,11 +17,10 @@
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="marca" optional="YES" attributeType="String"/>
         <attribute name="preco" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="valor" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <elements>
         <element name="Carrinho" positionX="-63" positionY="-18" width="128" height="148"/>
-        <element name="Compras" positionX="-63" positionY="36" width="128" height="103"/>
         <element name="CarrinhoTotal" positionX="-54" positionY="45" width="128" height="73"/>
+        <element name="Compras" positionX="-63" positionY="36" width="128" height="88"/>
     </elements>
 </model>

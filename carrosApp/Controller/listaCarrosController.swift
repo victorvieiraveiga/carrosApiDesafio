@@ -13,8 +13,10 @@ import CoreData
 class listaCarrosController: UITableViewController {
     
     var carros : [Carro] = [Carro]()
-     var isError:Bool = false
+    var isError:Bool = false
     var index: Int = 0
+    var fetchingMore = false
+    var  i: Int = 0
 
     @IBOutlet weak var btnCarrinho: UIBarButtonItem!
     @IBOutlet var tbViewCarro: UITableView!
@@ -25,6 +27,9 @@ class listaCarrosController: UITableViewController {
 
         tbViewCarro.delegate = self
         tbViewCarro.dataSource = self
+        
+        let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
+        tableView.register(loadingNib, forCellReuseIdentifier: "loadingCell")
         
         getCarros()
        //excluiTotal()
@@ -38,14 +43,14 @@ class listaCarrosController: UITableViewController {
         var total: Double = 0
         var quantidade: Int = 0
       
-        
+        //declara variaveis CoreData
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let carrinho = NSEntityDescription.insertNewObject(forEntityName: "Carrinho", into: context)
         
 
         
-        
+        //Setando valores no objeto Coredata
         carrinho.setValue(carros[indice].id, forKey: "id")
         carrinho.setValue(carros[indice].nome, forKey: "nome")
         carrinho.setValue(carros[indice].preco, forKey: "preco")
@@ -54,7 +59,7 @@ class listaCarrosController: UITableViewController {
         carrinho.setValue(carros[indice].descricao, forKey: "descricao")
         carrinho.setValue(1, forKey: "quantidade")
         
-        //Pega valor total das compras para somar
+        //Realiza Totalização
         (total,quantidade) = getTotal()
         total = (total + carros[indice].preco! as Double)
         
@@ -158,7 +163,7 @@ class listaCarrosController: UITableViewController {
             
             self.carros = cars
             self.tableView.reloadData()
-            self.tbViewCarro.reloadData()
+            //self.tbViewCarro.reloadData()
             
         }) { (error) in
             self.isError = true
@@ -172,16 +177,35 @@ class listaCarrosController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return carros.count
+        
+        
+        if section == 0 {
+            return carros.count
+        } else if section == 1 && fetchingMore {
+            return 1
+        }
+        return 0
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+           return 2
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell: CarroTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CarroTableViewCell {
+        if indexPath.section == 0 {
+        
+            guard let cell: CarroTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CarroTableViewCell else {return  UITableViewCell()}
             
             cell.carro = carros[indexPath.row]
             cell.btnCarrinho.tag = indexPath.row
            
+            return cell
+        } else {
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as? LoadingCell else {return  UITableViewCell()}
+            
+            cell.spinner.startAnimating()
             return cell
         }
 
@@ -207,5 +231,35 @@ class listaCarrosController: UITableViewController {
             viewDetalhe.carros = self.carros
         }
     }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        
+        if offsetY > contentHeight - scrollView.frame.height * 4 {
+            if !fetchingMore {
+                beginBatchFetch()
+            }
+            
+        }
+    }
+    
+    
+    func beginBatchFetch() {
+        fetchingMore = true
+        print("beginBatchFetch!")
+        self.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+     
+        self.carros.append(self.carros[self.i])
+        self.fetchingMore = false
+        self.tableView.reloadData()
+        self.i = self.i + 1
+            
+        })
+    }
+    
+
 
 }

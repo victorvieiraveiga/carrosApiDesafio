@@ -185,7 +185,75 @@ class ComprasViewController: UIViewController {
                
         return (totalValor,quantidade)
     }
-
+    
+    
+    @IBAction func finalizarCompra(_ sender: Any) {
+        
+              let appDelegate = UIApplication.shared.delegate as! AppDelegate
+              let context = appDelegate.persistentContainer.viewContext
+              let compras = NSEntityDescription.insertNewObject(forEntityName: "Compras", into: context)
+        
+                for car in self.carrinho {
+                    
+                        guard let id = car.value(forKey: "id") else {return}
+                        guard let marca = car.value(forKey: "marca") else {return}
+                        guard let preco = car.value(forKey: "preco") else {return}
+        
+                        compras.setValue(id, forKey: "id")
+                        compras.setValue(marca, forKey: "marca")
+                        compras.setValue(preco, forKey: "preco")
+                        
+                        do {
+                            try context.save()
+                        } catch  {
+                            print ("Erro ao salvar compra.")
+                        }
+                    
+                    exibeMensagemAlerta(titulo: "Compra.", mensagem: "Compra Realizada Com Sucesso.")
+                    
+                    limpaCarrinho ()
+                }
+    }
+    
+    func exibeMensagemAlerta (titulo: String, mensagem:String){
+        let myAlert = UIAlertController(title: titulo, message: mensagem, preferredStyle: .alert)
+        let oKAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil)
+        myAlert.addAction(oKAction)
+        self.present(myAlert, animated: true, completion: nil)
+    }
+    
+    func limpaCarrinho () {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            let requisicao = NSFetchRequest<NSFetchRequestResult>(entityName: "Carrinho")
+        
+            
+        do {
+           let carrinhoCompras  = try context.fetch(requisicao) as! [NSManagedObject]
+            
+                for car in carrinhoCompras {
+                    removeItemTotal(car)
+                    context.delete(car)
+                    try context.save()
+                 }
+                self.carrinho.removeAll()
+   
+        } catch  {
+            print ("Erro.")
+        }
+        
+            self.tbViewCarro.reloadData()
+            
+            do {
+                try context.save()
+            } catch let erro {
+                print ("Erro ao remover item \(erro)")
+            }
+            excluiTotal()
+            CarregaTotalCarrinho()
+            tbViewCarro.reloadData()
+    }
+    
 }
 
 extension ComprasViewController : UITableViewDelegate, UITableViewDataSource {
